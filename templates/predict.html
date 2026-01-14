@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Prediction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        input[type="number"],
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="number"]:focus,
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+            animation: fadeIn 0.5s;
+        }
+        
+        .result h2 {
+            margin-bottom: 10px;
+        }
+        
+        .result-value {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .info p {
+            color: #666;
+            font-size: 14px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Make Prediction</h1>
+        <p class="subtitle">Enter the feature values below</p>
+        
+        <div class="info">
+            <p><strong>Note:</strong> Please fill in all the required fields with valid numeric values.</p>
+        </div>
+        
+        <form method="POST" action="/predict">
+            <div class="form-group">
+                <label for="feature1">Feature 1:</label>
+                <input type="number" step="any" id="feature1" name="feature1" required 
+                       placeholder="Enter value for feature 1">
+            </div>
+            
+            <div class="form-group">
+                <label for="feature2">Feature 2:</label>
+                <input type="number" step="any" id="feature2" name="feature2" required
+                       placeholder="Enter value for feature 2">
+            </div>
+            
+            <div class="form-group">
+                <label for="feature3">Feature 3:</label>
+                <input type="number" step="any" id="feature3" name="feature3" required
+                       placeholder="Enter value for feature 3">
+            </div>
+            
+            <!-- Add more features as needed for your specific model -->
+            
+            <button type="submit" class="btn">Predict</button>
+        </form>
+        
+        {% if results is not none %}
+        <div class="result">
+            <h2>Prediction Result</h2>
+            <div class="result-value">{{ "%.4f"|format(results) }}</div>
+        </div>
+        {% endif %}
+        
+        <center>
+            <a href="/" class="back-link">← Back to Home</a>
+        </center>
+    </div>
+</body>
+</html>
